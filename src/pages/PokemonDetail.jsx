@@ -1,8 +1,10 @@
+// src/pages/PokemonDetail.jsx
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
-import MOCK_DATA from "../mock";
+import { useContext } from "react";
+import DexContext from "../contexts/DexContext"; // ✅ context import
 
-const HomeContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,37 +13,18 @@ const HomeContainer = styled.div`
   height: 100vh;
 `;
 
-const StartButton = styled.button`
-  padding: 10px 20px;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 5px;
-  background-color: #ff0000;
-  color: white;
-  border: none;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #cc0000;
-  }
-`;
-
 const Card = styled.div`
   border: 1px solid #ddd;
   background-color: #fff;
   border-radius: 10px;
-  overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  padding: 10px;
-  cursor: pointer;
+  padding: 20px;
   color: black;
-  transition: transform 0.2s, box-shadow 0.2s;
+`;
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
+const Button = styled.button`
+  margin-top: 16px;
 `;
 
 export default function PokemonDetail() {
@@ -49,19 +32,27 @@ export default function PokemonDetail() {
   const location = new URLSearchParams(useLocation().search);
   const pokemonId = parseInt(location.get("id"));
 
-  const selectedPokemon = MOCK_DATA.find((pokemon) => pokemon.id === pokemonId);
+  const { pokemonList, selectedPokemon, addPokemon, removePokemon } = useContext(DexContext);
+
+  const pokemon = pokemonList.find((p) => p.id === pokemonId);
+  const isSelected = selectedPokemon.some((p) => p.id === pokemonId);
+
+  const handleClick = () => {
+    isSelected ? removePokemon(pokemon) : addPokemon(pokemon);
+  };
 
   return (
-    <HomeContainer>
+    <Container>
       <Card>
-        <div>{selectedPokemon.korean_name}</div>
-        <img src={selectedPokemon.img_url} />
-        <div>타입: {selectedPokemon.types.join(", ")}</div>
-        <div>{selectedPokemon.description}</div>
+        <h2>{pokemon.korean_name}</h2>
+        <img src={pokemon.img_url} alt={pokemon.korean_name} />
+        <p>타입: {pokemon.types.join(", ")}</p>
+        <p>{pokemon.description}</p>
+        <Button onClick={handleClick}>
+          {isSelected ? "삭제하기" : "추가하기"}
+        </Button>
+        <Button onClick={() => navigate("/dex")}>도감으로 돌아가기</Button>
       </Card>
-      <StartButton onClick={() => navigate("/dex")}>
-        도감으로 돌아가기
-      </StartButton>
-    </HomeContainer>
+    </Container>
   );
 }

@@ -1,5 +1,8 @@
+// src/components/PokemonList.jsx
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
+import { useContext } from "react";
+import DexContext from "../contexts/DexContext"; // ✅ context import
 
 const ListContainer = styled.div`
   display: grid;
@@ -11,7 +14,9 @@ const ListContainer = styled.div`
   border-radius: 10px;
 `;
 
-const PokemonList = ({ pokemonList, addPokemon }) => {
+const PokemonList = () => {
+  const { pokemonList, addPokemon } = useContext(DexContext); // ✅ context 사용
+
   return (
     <ListContainer>
       {pokemonList.map((pokemon) => (

@@ -1,5 +1,8 @@
+
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
+import { useContext } from "react";
+import DexContext from "../contexts/DexContext"; // ✅ context import
 
 const DashboardContainer = styled.div`
   display: flex;
@@ -44,7 +47,9 @@ const PokeballImage = styled.img`
   height: 50px;
 `;
 
-const Dashboard = ({ selectedPokemon, removePokemon }) => {
+const Dashboard = () => {
+  const { selectedPokemon, removePokemon } = useContext(DexContext); // ✅ context 사용
+
   return (
     <DashboardContainer>
       <Title>대시보드</Title>

@@ -1,8 +1,10 @@
+// src/pages/Dex.jsx
 import { useState } from "react";
 import styled from "styled-components";
 import Dashboard from "../components/Dashboard";
 import PokemonList from "../components/PokemonList";
 import MOCK_DATA from "../mock";
+import DexContext from "../contexts/DexContext"; // ✅ 추가
 
 const DexContainer = styled.div`
   display: flex;
@@ -17,8 +19,8 @@ export default function Dex() {
   const addPokemon = (pokemon) => {
     if (selectedPokemon.length >= 6) {
       alert("포켓몬은 최대 6개까지만 선택될 수 있어요.");
-    } else if (selectedPokemon.includes(pokemon)) {
-      alert("이미 선택된 포켓몬 입니다.");
+    } else if (selectedPokemon.find((p) => p.id === pokemon.id)) {
+      alert("이미 선택된 포켓몬입니다.");
     } else {
       setSelectedPokemon([...selectedPokemon, pokemon]);
     }
@@ -29,15 +31,18 @@ export default function Dex() {
   };
 
   return (
-    <DexContainer>
-      <Dashboard
-        selectedPokemon={selectedPokemon}
-        removePokemon={removePokemon}
-      />
-      <PokemonList
-        pokemonList={MOCK_DATA}
-        addPokemon={addPokemon}
-      />
-    </DexContainer>
+    <DexContext.Provider
+      value={{
+        selectedPokemon,
+        addPokemon,
+        removePokemon,
+        pokemonList: MOCK_DATA,
+      }}
+    >
+      <DexContainer>
+        <Dashboard />
+        <PokemonList />
+      </DexContainer>
+    </DexContext.Provider>
   );
 }
