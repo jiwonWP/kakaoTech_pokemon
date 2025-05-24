@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Dashboard from "../components/Dashboard";
 import PokemonList from "../components/PokemonList";
@@ -12,19 +12,12 @@ const DexContainer = styled.div`
 `;
 
 export default function Dex() {
-  const [selectedPokemon, setSelectedPokemon] = useState(() => {
-    const saved = localStorage.getItem("selectedPokemon");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("selectedPokemon", JSON.stringify(selectedPokemon));
-  }, [selectedPokemon]);
+  const [selectedPokemon, setSelectedPokemon] = useState([]);
 
   const addPokemon = (pokemon) => {
     if (selectedPokemon.length >= 6) {
       alert("포켓몬은 최대 6개까지만 선택될 수 있어요.");
-    } else if (selectedPokemon.find((p) => p.id === pokemon.id)) {
+    } else if (selectedPokemon.includes(pokemon)) {
       alert("이미 선택된 포켓몬 입니다.");
     } else {
       setSelectedPokemon([...selectedPokemon, pokemon]);
