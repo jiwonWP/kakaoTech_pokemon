@@ -17,35 +17,17 @@
 | 💾 상태 유지              | Context API + LocalStorage로 상태 유지 (페이지 전환, 새로고침 포함) |
 | 💬 UI 피드백              | react-toastify를 통한 사용자 피드백                                 |
 
-src/
-│
 
-├── components/
+## 🛠 사용 기술
 
-│ ├── Dashboard.jsx
+- **React 18 / Vite**
+- **React Router DOM**
+- **Styled-components**
+- **Context API**
+- **LocalStorage**
+- **React Toastify**
 
-│ ├── PokemonCard.jsx
 
-│ └── PokemonList.jsx
-│
+## 🌐 배포 링크
 
-├── contexts/
-
-│ └── DexContext.js
-│
-
-├── pages/
-
-│ ├── Home.jsx
-
-│ ├── Dex.jsx
-
-│ └── PokemonDetail.jsx
-│
-
-├── mock.js
-
-├── App.jsx
-
-└── main.jsx
-
+👉 [https://kakao-tech-pokemon.vercel.app]
