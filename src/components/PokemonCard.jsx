@@ -1,6 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import DexContext from "../contexts/DexContext";
 
 const Card = styled.div`
   border: 1px solid #ddd;
@@ -20,32 +21,47 @@ const Card = styled.div`
   }
 `;
 
-const DetailBtn = styled.button`
+const ActionButton = styled.button`
   margin-top: 8px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #cc0000;
+  }
 `;
 
-function PokemonCard({ pokemon, handleonClick }) {
+function PokemonCard({ pokemon }) {
   const navigate = useNavigate();
+  const { selectedPokemon, addPokemon, removePokemon } = useContext(DexContext);
+
+  const isSelected = selectedPokemon.some((p) => p.id === pokemon.id);
+
+  const handleCardClick = () => {
+    navigate(`/pokemon-detail?id=${pokemon.id}`);
+  };
+
+  const handleActionClick = (e) => {
+    e.stopPropagation();
+    if (isSelected) {
+      removePokemon(pokemon);
+    } else {
+      addPokemon(pokemon);
+    }
+  };
 
   return (
-    <Card>
-      <div
-        onClick={() => {
-          handleonClick(pokemon);
-        }}
-      >
-        <div>{pokemon.korean_name}</div>
-        <img src={pokemon.img_url} />
-        <div>{pokemon.description}</div>
-      </div>
-      <DetailBtn
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate(`/pokemon-detail?id=${pokemon.id}`);
-        }}
-      >
-        자세히
-      </DetailBtn>
+    <Card onClick={handleCardClick}>
+      <div>{pokemon.korean_name}</div>
+      <img src={pokemon.img_url} alt={pokemon.korean_name} />
+      <div>{pokemon.description}</div>
+      <ActionButton onClick={handleActionClick}>
+        {isSelected ? "삭제" : "추가"}
+      </ActionButton>
     </Card>
   );
 }

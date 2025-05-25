@@ -1,4 +1,3 @@
-// src/components/PokemonList.jsx
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import { useContext } from "react";
@@ -15,16 +14,12 @@ const ListContainer = styled.div`
 `;
 
 const PokemonList = () => {
-  const { pokemonList, addPokemon } = useContext(DexContext); // ✅ context 사용
+  const { pokemonList } = useContext(DexContext); // ✅ context 사용
 
   return (
     <ListContainer>
       {pokemonList.map((pokemon) => (
-        <PokemonCard
-          key={pokemon.id}
-          pokemon={pokemon}
-          handleonClick={addPokemon}
-        />
+        <PokemonCard key={pokemon.id} pokemon={pokemon} />
       ))}
     </ListContainer>
   );

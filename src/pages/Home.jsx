@@ -30,7 +30,7 @@ export default function Home() {
 
   return (
     <HomeContainer>
-      여기는 홈입니다.
+      <Logo src="/pokemon.png" alt="Pokemon Logo" />
       <StartButton onClick={() => navigate("/dex")}>
         포켓몬 도감 시작하기
       </StartButton>

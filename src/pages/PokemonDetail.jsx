@@ -2,23 +2,33 @@ import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import MOCK_DATA from "../mock";
-import { PokemonContext } from "./Dex"; // ✅ context 불러오기
+import DexContext from "../contexts/DexContext";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
 `;
 
 const Card = styled.div`
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  max-width: 300px;
-  margin-bottom: 20px;
+  padding: 10px;
+  cursor: pointer;
+  color: black;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 const Img = styled.img`
@@ -27,14 +37,18 @@ const Img = styled.img`
 `;
 
 const Button = styled.button`
-  background-color: #e63946;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #ff0000;
   color: white;
   border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 16px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #cc0000;
+  }
 `;
 
 export default function PokemonDetail() {

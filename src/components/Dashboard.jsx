@@ -26,7 +26,7 @@ const Message = styled.p`
 const SlotsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   justify-items: center;
 `;
@@ -43,9 +43,10 @@ const EmptySlot = styled.div`
 `;
 
 const PokeballImage = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
 `;
+
 
 const Dashboard = () => {
   const { selectedPokemon, removePokemon } = useContext(DexContext); // ✅ context 사용
@@ -64,6 +65,11 @@ const Dashboard = () => {
               handleonClick={removePokemon}
             />
           ))}
+          {Array.from({ length: 6 - selectedPokemon.length }).map((_, idx) => (
+    <EmptySlot key={`empty-${idx}`}>
+      <PokeballImage src="/pokemon-ball.png" alt="빈 슬롯" />
+    </EmptySlot>
+  ))}
         </SlotsContainer>
       )}
     </DashboardContainer>
