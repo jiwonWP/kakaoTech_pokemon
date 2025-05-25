@@ -13,14 +13,22 @@ const ListContainer = styled.div`
   border-radius: 10px;
 `;
 
-const PokemonList = () => {
-  const { pokemonList } = useContext(DexContext); // ✅ context 사용
-
+const PokemonList = ({ pokemonList, addPokemon, selectedPokemon }) => {
   return (
     <ListContainer>
-      {pokemonList.map((pokemon) => (
-        <PokemonCard key={pokemon.id} pokemon={pokemon} />
-      ))}
+      {pokemonList.map((pokemon) => {
+        const isSelected = selectedPokemon.some((p) => p.id === pokemon.id);
+
+        return (
+          <PokemonCard
+            key={pokemon.id}
+            pokemon={pokemon}
+            handleonClick={addPokemon}
+            isSelected={isSelected}   
+            isDashboard={false}
+          />
+        );
+      })}
     </ListContainer>
   );
 };

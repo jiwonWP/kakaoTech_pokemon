@@ -8,17 +8,24 @@ const HomeContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 100vh;
+  background-color: #ffcc00;
 `;
 
+const Logo = styled.img`
+  width: 700px;
+  margin-bottom: 32px;
+`;
+
+
 const StartButton = styled.button`
-  padding: 10px 20px;
-  font-size: 18px;
+  padding: 12px 25px;
+  font-size: 22px;
   cursor: pointer;
   border-radius: 5px;
   background-color: #ff0000;
   color: white;
-  border: none;
-  transition: background-color 0.3s ease;
+
+  transition: background-color 1s ease;
 
   &:hover {
     background-color: #cc0000;
@@ -32,7 +39,7 @@ export default function Home() {
     <HomeContainer>
       <Logo src="/pokemon.png" alt="Pokemon Logo" />
       <StartButton onClick={() => navigate("/dex")}>
-        포켓몬 도감 시작하기
+        - 포켓몬 도감 -
       </StartButton>
     </HomeContainer>
   );

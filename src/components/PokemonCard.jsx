@@ -35,14 +35,16 @@ const ActionButton = styled.button`
   }
 `;
 
-function PokemonCard({ pokemon }) {
+function PokemonCard({ pokemon, isDashboard }) {
   const navigate = useNavigate();
   const { selectedPokemon, addPokemon, removePokemon } = useContext(DexContext);
 
   const isSelected = selectedPokemon.some((p) => p.id === pokemon.id);
 
   const handleCardClick = () => {
-    navigate(`/pokemon-detail?id=${pokemon.id}`);
+    if (!isDashboard) {
+      navigate(`/pokemon-detail?id=${pokemon.id}`);
+    }
   };
 
   const handleActionClick = (e) => {
@@ -57,10 +59,10 @@ function PokemonCard({ pokemon }) {
   return (
     <Card onClick={handleCardClick}>
       <div>{pokemon.korean_name}</div>
-      <img src={pokemon.img_url} alt={pokemon.korean_name} />
-      <div>{pokemon.description}</div>
+      <img src={pokemon.img_url} />
+      <div>No. {pokemon.id.toString().padStart(3, "0")}</div>
       <ActionButton onClick={handleActionClick}>
-        {isSelected ? "삭제" : "추가"}
+        {isDashboard ? "삭제" : isSelected ? "삭제" : "추가"}
       </ActionButton>
     </Card>
   );
