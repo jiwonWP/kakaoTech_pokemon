@@ -19,20 +19,33 @@
 
 src/
 │
+
 ├── components/
+
 │ ├── Dashboard.jsx
+
 │ ├── PokemonCard.jsx
+
 │ └── PokemonList.jsx
 │
+
 ├── contexts/
+
 │ └── DexContext.js
 │
+
 ├── pages/
+
 │ ├── Home.jsx
+
 │ ├── Dex.jsx
+
 │ └── PokemonDetail.jsx
 │
+
 ├── mock.js
+
 ├── App.jsx
+
 └── main.jsx
 
