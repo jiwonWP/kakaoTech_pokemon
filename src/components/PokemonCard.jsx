@@ -59,10 +59,10 @@ function PokemonCard({ pokemon, isDashboard }) {
   return (
     <Card onClick={handleCardClick}>
       <div>{pokemon.korean_name}</div>
-      <img src={pokemon.img_url} />
+      <img src={pokemon.img_url} alt={pokemon.korean_name} />
       <div>No. {pokemon.id.toString().padStart(3, "0")}</div>
       <ActionButton onClick={handleActionClick}>
-        {isDashboard ? "삭제" : isSelected ? "삭제" : "추가"}
+        {isSelected ? "삭제" : "추가"}
       </ActionButton>
     </Card>
   );

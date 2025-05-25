@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import MOCK_DATA from "../mock";
-
+import { toast } from "react-toastify";
 const DexContext = createContext();
 
 export const DexProvider = ({ children }) => {
@@ -15,12 +15,13 @@ export const DexProvider = ({ children }) => {
 
   const addPokemon = (pokemon) => {
     if (selectedPokemon.length >= 6) {
-      alert("포켓몬은 최대 6마리까지만 선택할 수 있어요.");
-    } else if (selectedPokemon.find((p) => p.id === pokemon.id)) {
-      alert("이미 선택된 포켓몬입니다.");
-    } else {
-      setSelectedPokemon([...selectedPokemon, pokemon]);
-    }
+  toast.warning("포켓몬은 최대 6마리까지만 선택할 수 있어요.");
+} else if (selectedPokemon.find((p) => p.id === pokemon.id)) {
+  toast.info("이미 선택된 포켓몬입니다.");
+} else {
+  setSelectedPokemon([...selectedPokemon, pokemon]);
+  toast.success(`${pokemon.korean_name} 추가 완료!`);
+}
   };
 
   const removePokemon = (pokemon) => {

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import Dashboard from "../components/Dashboard";
 import PokemonList from "../components/PokemonList";
-import DexContext from "../contexts/DexContext";
-import { useContext } from "react";
 
 const DexContainer = styled.div`
   display: flex;
@@ -12,20 +10,10 @@ const DexContainer = styled.div`
 `;
 
 export default function Dex() {
-  const { selectedPokemon, addPokemon, removePokemon, pokemonList } = useContext(DexContext); // ✅
-
   return (
     <DexContainer>
-      <Dashboard
-        selectedPokemon={selectedPokemon}
-        removePokemon={removePokemon}
-      />
-      <PokemonList
-  pokemonList={MOCK_DATA}
-  addPokemon={addPokemon}
-  selectedPokemon={selectedPokemon}
-/>
-
+      <Dashboard />
+      <PokemonList />
     </DexContainer>
   );
 }

@@ -4,18 +4,22 @@ import Home from "./pages/Home";
 import Dex from "./pages/Dex";
 import PokemonDetail from "./pages/PokemonDetail";
 
-import { ToastContainer, toast } from "react-toastify"; // ✅ Toast 추가
-import "react-toastify/dist/ReactToastify.css";         // ✅ 스타일 추가
+import { DexProvider } from "./contexts/DexContext"; // ✅ Context Provider
+import { ToastContainer } from "react-toastify";     // ✅ Toast
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dex" element={<Dex />} />
-        <Route path="/pokemon-detail" element={<PokemonDetail />} />
-      </Routes>
-    </BrowserRouter>
+    <DexProvider> {/* ✅ 전역 상태 관리 */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dex" element={<Dex />} />
+          <Route path="/pokemon-detail" element={<PokemonDetail />} />
+        </Routes>
+        <ToastContainer position="top-center" autoClose={2000} />
+      </BrowserRouter>
+    </DexProvider>
   );
 }
 

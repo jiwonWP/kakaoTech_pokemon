@@ -1,7 +1,9 @@
-
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
-import pokeball from "/pokemon-ball.png"; // public 폴더의 pokemon-ball.png
+import pokeball from "/pokemon-ball.png";
+import { useContext } from "react";
+import DexContext from "../contexts/DexContext"; // ✅ context import
+
 const Container = styled.section`
   padding: 20px;
   margin-bottom: 24px;
@@ -38,7 +40,9 @@ const PokeballImage = styled.img`
   height: 48px;
 `;
 
-const Dashboard = ({ selectedPokemon, removePokemon }) => {
+const Dashboard = () => {
+  const { selectedPokemon, removePokemon } = useContext(DexContext); 
+
   const totalSlots = 6;
   const filledSlots = selectedPokemon.length;
   const emptySlots = totalSlots - filledSlots;
@@ -66,4 +70,3 @@ const Dashboard = ({ selectedPokemon, removePokemon }) => {
 };
 
 export default Dashboard;
-

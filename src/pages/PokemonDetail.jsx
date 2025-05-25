@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import MOCK_DATA from "../mock";
-import DexContext from "../contexts/DexContext";
+import DexContext from "../contexts/DexContext"; // ✅ 올바른 Context import
 
 const Container = styled.div`
   display: flex;
@@ -21,14 +21,7 @@ const Card = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   padding: 10px;
-  cursor: pointer;
   color: black;
-  transition: transform 0.2s, box-shadow 0.2s;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
 `;
 
 const Img = styled.img`
@@ -44,6 +37,7 @@ const Button = styled.button`
   background-color: #ff0000;
   color: white;
   border: none;
+  margin: 10px;
   transition: background-color 0.3s ease;
 
   &:hover {
@@ -59,7 +53,7 @@ export default function PokemonDetail() {
 
   const pokemon = MOCK_DATA.find((p) => p.id === id);
 
-  const { selectedPokemon, addPokemon, removePokemon } = useContext(PokemonContext);
+  const { selectedPokemon, addPokemon, removePokemon } = useContext(DexContext); // ✅ 수정된 부분
   const isSelected = selectedPokemon.some((p) => p.id === pokemon.id);
 
   const handleClick = () => {

@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import { useContext } from "react";
-import DexContext from "../contexts/DexContext"; // ✅ context import
-
+import DexContext from "../contexts/DexContext"; 
 const ListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -13,7 +12,9 @@ const ListContainer = styled.div`
   border-radius: 10px;
 `;
 
-const PokemonList = ({ pokemonList, addPokemon, selectedPokemon }) => {
+const PokemonList = () => {
+  const { pokemonList, selectedPokemon, addPokemon } = useContext(DexContext);
+
   return (
     <ListContainer>
       {pokemonList.map((pokemon) => {
@@ -24,7 +25,7 @@ const PokemonList = ({ pokemonList, addPokemon, selectedPokemon }) => {
             key={pokemon.id}
             pokemon={pokemon}
             handleonClick={addPokemon}
-            isSelected={isSelected}   
+            isSelected={isSelected}
             isDashboard={false}
           />
         );
