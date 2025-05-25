@@ -1,58 +1,73 @@
-// src/pages/PokemonDetail.jsx
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
-import DexContext from "../contexts/DexContext"; // ✅ context import
+import MOCK_DATA from "../mock";
+import { PokemonContext } from "./Dex"; // ✅ context 불러오기
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100vh;
+  padding: 40px;
 `;
 
 const Card = styled.div`
-  border: 1px solid #ddd;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  background: white;
   padding: 20px;
-  color: black;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 300px;
+  margin-bottom: 20px;
+`;
+
+const Img = styled.img`
+  width: 120px;
+  height: 120px;
 `;
 
 const Button = styled.button`
+  background-color: #e63946;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
   margin-top: 16px;
 `;
 
 export default function PokemonDetail() {
+  const location = useLocation();
   const navigate = useNavigate();
-  const location = new URLSearchParams(useLocation().search);
-  const pokemonId = parseInt(location.get("id"));
+  const query = new URLSearchParams(location.search);
+  const id = parseInt(query.get("id"), 10);
 
-  const { pokemonList, selectedPokemon, addPokemon, removePokemon } = useContext(DexContext);
+  const pokemon = MOCK_DATA.find((p) => p.id === id);
 
-  const pokemon = pokemonList.find((p) => p.id === pokemonId);
-  const isSelected = selectedPokemon.some((p) => p.id === pokemonId);
+  const { selectedPokemon, addPokemon, removePokemon } = useContext(PokemonContext);
+  const isSelected = selectedPokemon.some((p) => p.id === pokemon.id);
 
   const handleClick = () => {
-    isSelected ? removePokemon(pokemon) : addPokemon(pokemon);
+    if (isSelected) {
+      removePokemon(pokemon);
+    } else {
+      addPokemon(pokemon);
+    }
   };
 
   return (
     <Container>
       <Card>
         <h2>{pokemon.korean_name}</h2>
-        <img src={pokemon.img_url} alt={pokemon.korean_name} />
+        <Img src={pokemon.img_url} alt={pokemon.korean_name} />
         <p>타입: {pokemon.types.join(", ")}</p>
         <p>{pokemon.description}</p>
         <Button onClick={handleClick}>
-          {isSelected ? "삭제하기" : "추가하기"}
+          {isSelected ? "삭제" : "추가"}
         </Button>
-        <Button onClick={() => navigate("/dex")}>도감으로 돌아가기</Button>
       </Card>
+      <Button onClick={() => navigate("/dex")}>도감으로 돌아가기</Button>
     </Container>
   );
 }
