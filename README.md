@@ -1,12 +1,38 @@
-# React + Vite
+# 🧢 나만의 포켓몬 도감
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![cover](./public/pokemon.png)
 
-Currently, two official plugins are available:
+**React 기반 포켓몬 도감 프로젝트**입니다. 포켓몬을 선택해 나만의 대시보드를 만들고, 각 포켓몬의 상세 정보도 확인할 수 있어요!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 주요 기능
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| 기능 항목                 | 설명                                                                 |
+|--------------------------|----------------------------------------------------------------------|
+| 🎴 포켓몬 리스트          | TMDB처럼 카드 형태로 포켓몬 목록을 표시                              |
+| ➕ 포켓몬 선택             | '추가' 버튼으로 포켓몬을 나만의 도감에 등록 (최대 6마리)            |
+| ❌ 포켓몬 삭제             | 대시보드에서 '삭제' 버튼으로 등록 해제                              |
+| 🔍 디테일 페이지           | 포켓몬을 클릭해 상세 설명 페이지로 이동 가능                         |
+| 💾 상태 유지              | Context API + LocalStorage로 상태 유지 (페이지 전환, 새로고침 포함) |
+| 💬 UI 피드백              | react-toastify를 통한 사용자 피드백                                 |
+
+src/
+│
+├── components/
+│ ├── Dashboard.jsx
+│ ├── PokemonCard.jsx
+│ └── PokemonList.jsx
+│
+├── contexts/
+│ └── DexContext.js
+│
+├── pages/
+│ ├── Home.jsx
+│ ├── Dex.jsx
+│ └── PokemonDetail.jsx
+│
+├── mock.js
+├── App.jsx
+└── main.jsx
+
