@@ -1,68 +1,68 @@
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
-
-const DashboardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+import pokeball from "/pokemon-ball.png"; // public 폴더의 pokemon-ball.png
+const Container = styled.section`
   padding: 20px;
-  background-color: #f8f8f8;
-  margin-bottom: 20px;
-  border-radius: 10px;
+  margin-bottom: 24px;
+  background-color: #fff3cd;
+  border-radius: 12px;
+  border: 2px solid #ffd966;
 `;
 
 const Title = styled.h2`
-  margin-bottom: 20px;
-  color: #ff0000;
+  color: #d62828;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  text-align: center;
 `;
 
-const Message = styled.p`
-  color: black;
-`;
-
-const SlotsContainer = styled.div`
+const SlotGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-  width: 100%;
-  justify-items: center;
+  gap: 12px;
 `;
 
 const EmptySlot = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color: #fff;
+  height: 160px;
   border: 2px dashed #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 10px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const PokeballImage = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
 `;
 
 const Dashboard = ({ selectedPokemon, removePokemon }) => {
+  const totalSlots = 6;
+  const filledSlots = selectedPokemon.length;
+  const emptySlots = totalSlots - filledSlots;
+
   return (
-    <DashboardContainer>
-      <Title>대시보드</Title>
-      {selectedPokemon.length === 0 ? (
-        <Message>선택된 포켓몬이 없습니다.</Message>
-      ) : (
-        <SlotsContainer>
-          {selectedPokemon.map((pokemon) => (
-            <PokemonCard
-              key={pokemon.id}
-              pokemon={pokemon}
-              handleonClick={removePokemon}
-            />
-          ))}
-        </SlotsContainer>
-      )}
-    </DashboardContainer>
+    <Container>
+      <Title>나만의 포켓몬</Title>
+      <SlotGrid>
+        {selectedPokemon.map((pokemon) => (
+          <PokemonCard
+            key={pokemon.id}
+            pokemon={pokemon}
+            handleonClick={removePokemon}
+            isDashboard={true}
+          />
+        ))}
+        {Array.from({ length: emptySlots }).map((_, i) => (
+          <EmptySlot key={`empty-${i}`}>
+            <PokeballImage src={pokeball} alt="빈 슬롯" />
+          </EmptySlot>
+        ))}
+      </SlotGrid>
+    </Container>
   );
 };
 
 export default Dashboard;
+

@@ -20,32 +20,42 @@ const Card = styled.div`
   }
 `;
 
-const DetailBtn = styled.button`
+const ActionButton = styled.button`
   margin-top: 8px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #cc0000;
+  }
 `;
 
-function PokemonCard({ pokemon, handleonClick }) {
+function PokemonCard({ pokemon, handleonClick, isDashboard }) {
   const navigate = useNavigate();
 
+  const handleCardClick = () => {
+    if (!isDashboard) {
+      navigate(`/pokemon-detail?id=${pokemon.id}`);
+    }
+  };
+
+  const handleActionClick = (e) => {
+    e.stopPropagation();
+    handleonClick(pokemon);
+  };
+
   return (
-    <Card>
-      <div
-        onClick={() => {
-          handleonClick(pokemon);
-        }}
-      >
-        <div>{pokemon.korean_name}</div>
-        <img src={pokemon.img_url} />
-        <div>{pokemon.description}</div>
-      </div>
-      <DetailBtn
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate(`/pokemon-detail?id=${pokemon.id}`);
-        }}
-      >
-        자세히
-      </DetailBtn>
+    <Card onClick={handleCardClick}>
+      <div>{pokemon.korean_name}</div>
+      <img src={pokemon.img_url} />
+      <div>No. {pokemon.id.toString().padStart(3, "0")}</div>
+      <ActionButton onClick={handleActionClick}>
+        {isDashboard ? "삭제" : "추가"}
+      </ActionButton>
     </Card>
   );
 }

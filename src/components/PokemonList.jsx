@@ -11,16 +11,22 @@ const ListContainer = styled.div`
   border-radius: 10px;
 `;
 
-const PokemonList = ({ pokemonList, addPokemon }) => {
+const PokemonList = ({ pokemonList, addPokemon, selectedPokemon }) => {
   return (
     <ListContainer>
-      {pokemonList.map((pokemon) => (
-        <PokemonCard
-          key={pokemon.id}
-          pokemon={pokemon}
-          handleonClick={addPokemon}
-        />
-      ))}
+      {pokemonList.map((pokemon) => {
+        const isSelected = selectedPokemon.some((p) => p.id === pokemon.id);
+
+        return (
+          <PokemonCard
+            key={pokemon.id}
+            pokemon={pokemon}
+            handleonClick={addPokemon}
+            isSelected={isSelected}   
+            isDashboard={false}
+          />
+        );
+      })}
     </ListContainer>
   );
 };

@@ -35,9 +35,11 @@ export default function Dex() {
         removePokemon={removePokemon}
       />
       <PokemonList
-        pokemonList={MOCK_DATA}
-        addPokemon={addPokemon}
-      />
+  pokemonList={MOCK_DATA}
+  addPokemon={addPokemon}
+  selectedPokemon={selectedPokemon}
+/>
+
     </DexContainer>
   );
 }
